@@ -1,4 +1,4 @@
-import { cart, deleteItemFromCart } from "../../data/cart.js"
+import { cart, deleteItemFromCart, updateCartQuantity } from "../../data/cart.js"
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 
@@ -7,7 +7,7 @@ export const rednerOrderSummary = () => {
   cart.forEach(item => {
     const [matchingProduct] = getMatchProduct(item.id);
     orderSummaryHTML += `
-    <div class="cart-item-container">
+    <div class="cart-item-container js-container-${matchingProduct.id}">
         <div class="delivery-date">Delivery date: Tuesday, June 21</div>
         <div class="cart-item-details-grid">
           <img
@@ -20,14 +20,19 @@ export const rednerOrderSummary = () => {
               ${matchingProduct.name}
             </div>
             <div class="product-price">$${formatCurrency(matchingProduct.priceCents)}</div>
-            <div class="product-quantity">
+            <div class="product-quantity ">
               <span> Quantity: <span class="quantity-label">${item.quantity}</span> </span>
-              <span class="update-quantity-link link-primary">
+              <span class="update-quantity-link link-primary js-update-link" data-product-id="${matchingProduct.id}">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
+              <span class="delete-quantity-link link-primary js-delete-link " data-product-id="${matchingProduct.id}">
                 Delete
               </span>
+              <div class="update-form">
+                <input class="js-update-input-${matchingProduct.id}" />
+                <button class="link-primary js-update-btn" data-product-id="${matchingProduct.id}">Update</button>
+                <button class="link-primary js-cancel-btn" data-product-id="${matchingProduct.id}">Cancel</button>
+              </div>
             </div>
           </div>
 
@@ -83,6 +88,41 @@ export const rednerOrderSummary = () => {
       const { productId } = deleteLink.dataset;
       deleteItemFromCart(productId);
       rednerOrderSummary();
+    })
+  })
+
+
+  // open update item in the cart
+  document.querySelectorAll('.js-update-link').forEach(updateLink => {
+    updateLink.addEventListener('click', () => {
+      const { productId } = updateLink.dataset;
+      const cartItemContainer = document.querySelector(`.js-container-${productId}`);
+      cartItemContainer.classList.add("is-updating")
+    })
+  })
+
+
+  // cancle updating cart item
+  document.querySelectorAll('.js-cancel-btn').forEach(calcelBtn => {
+    calcelBtn.addEventListener('click', () => {
+      const { productId } = calcelBtn.dataset;
+      const cartItemContainer = document.querySelector(`.js-container-${productId}`);
+      cartItemContainer.classList.remove("is-updating")
+    })
+  })
+
+
+  // update item in the cart
+  document.querySelectorAll('.js-update-btn').forEach(updateBtn => {
+    updateBtn.addEventListener('click', () => {
+      const { productId } = updateBtn.dataset;
+      const cartItemContainer = document.querySelector(`.js-container-${productId}`);
+      const quantityUpdateValue = +document.querySelector(`.js-update-input-${productId}`).value;
+      if((typeof quantityUpdateValue === "number") && quantityUpdateValue < 1000){
+        updateCartQuantity(productId, quantityUpdateValue);
+        cartItemContainer.classList.remove("is-updating");
+        rednerOrderSummary();
+      }
     })
   })
 };

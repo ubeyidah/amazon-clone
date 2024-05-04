@@ -119,6 +119,37 @@
   margin-left: 3px;
 }
 
+.is-updating .update-quantity-link,
+.is-updating .delete-quantity-link,
+.is-updating .quantity-label {
+  display: none;
+}
+
+.is-updating .product-quantity {
+  display: flex;
+  gap: 5px;
+}
+
+.update-form {
+  display: none;
+}
+
+.is-updating .update-form {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.update-form input {
+  width: 50px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.update-form button {
+  padding: 0;
+  font-size: 16px;
+}
+
 @media (max-width: 1000px) {
   .delivery-options {
     /* grid-column: 1 means this element will be placed

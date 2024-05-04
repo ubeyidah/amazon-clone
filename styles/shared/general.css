@@ -20,7 +20,9 @@ select {
   cursor: pointer;
 }
 
-input, select, button {
+input,
+select,
+button {
   font-family: Roboto, Arial;
 }
 
@@ -77,6 +79,8 @@ input, select, button {
 .link-primary {
   color: rgb(1, 124, 182);
   cursor: pointer;
+  background: transparent;
+  border: none;
 }
 
 .link-primary:hover {

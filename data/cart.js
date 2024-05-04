@@ -29,6 +29,15 @@ export const deleteItemFromCart = (id) => {
   saveToStorage();
 }
 
+export const updateCartQuantity = (id, quantity) => {
+  cart.forEach(item => {
+    if(item.id === id){
+      item.quantity = quantity;
+    }
+  });
+  saveToStorage();
+}
+
 export const getTotalProductCart = () => {
   let totalQuantity = 0;
   cart.forEach(item => {
