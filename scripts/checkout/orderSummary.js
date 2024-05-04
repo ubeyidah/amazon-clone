@@ -1,16 +1,20 @@
 import { cart, deleteItemFromCart, updateCartQuantity, updateDeliveryOption, updateQuantityInThePage } from "../../data/cart.js"
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
+import { deliveryOptions, getMatchDeliveryOption } from "../../data/deliveryOptions.js";
+import deliveryDateStr from "../utils/deliveryDateStr.js";
 
 export const rednerOrderSummary = () => {
   updateQuantityInThePage("js-quantity");
   let orderSummaryHTML = '';
   cart.forEach(item => {
     const [matchingProduct] = getMatchProduct(item.id);
+    const [matchingDeliveryOption] = getMatchDeliveryOption(item.deliveryOptionId);
+    const deliveryDayString = deliveryDateStr(matchingDeliveryOption.deliveryDay)
+
     orderSummaryHTML += `
     <div class="cart-item-container js-container-${matchingProduct.id}">
-        <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+        <div class="delivery-date">Delivery date: ${deliveryDayString}</div>
         <div class="cart-item-details-grid">
           <img
             class="product-image"
@@ -113,8 +117,7 @@ function deliveryOptionHTML(productId, item){
   deliveryOptions.forEach(deliveryOption => {
     const priceString = deliveryOption.priceCents ? `$${formatCurrency(deliveryOption.priceCents)}` : "Free Shipping";
     const isChecked = item.deliveryOptionId === deliveryOption.deliveryId ? "checked" : "";
-    const today = dayjs();
-    const deliveryDayString = today.add(deliveryOption.deliveryDay, "days").format("dddd, MMMM D"); 
+    const deliveryDayString = deliveryDateStr(deliveryOption.deliveryDay);
     deliveryHTML += `
       <div class="delivery-option js-delivery-option" data-product-id="${productId}" data-delivery-option-id="${deliveryOption.deliveryId}">
       <input

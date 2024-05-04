@@ -14,4 +14,7 @@ export const deliveryOptions =  [
     priceCents: 999,
     deliveryDay: 1
   }
-]
+];
+
+
+export const getMatchDeliveryOption = (id) => deliveryOptions.filter(deliveryOption => deliveryOption.deliveryId === id);
