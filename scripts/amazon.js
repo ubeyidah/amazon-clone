@@ -64,6 +64,7 @@ document.querySelectorAll(".js-add-to-cart-btn").forEach(addBtn => {
     const itemQuantity = +document.querySelector(`.js-quantity-sel-${productId}`).value;
     addToCart(productId, itemQuantity);
     updateQuantityInThePage('js-cart-quantity');
+    console.log(cart);
   })
 })
 

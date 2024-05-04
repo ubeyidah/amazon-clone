@@ -1,4 +1,4 @@
-export let cart = [{
+export let cart = JSON.parse(localStorage.getItem('cart')) || [{
   id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
   quantity: 1,
 },
@@ -7,7 +7,9 @@ export let cart = [{
   quantity: 3,
 }];
 
+export const saveToStorage = () => localStorage.setItem("cart", JSON.stringify(cart));
 export const getMatchCartItem = (id) => cart.filter(item => item.id === id);
+
 
 export const addToCart = (id, numberOfItem = 1) => {
   const [matchingItem] = getMatchCartItem(id);
@@ -15,11 +17,10 @@ export const addToCart = (id, numberOfItem = 1) => {
     cart.push({id, quantity: numberOfItem});
   }else{
     cart.forEach(item => {
-      if(id === item.id){
-        item.quantity += numberOfItem;
-      }
+      id === item.id && (item.quantity += numberOfItem);
     })
   }
+  saveToStorage();
 };
 
 export const getTotalProductCart = () => {
