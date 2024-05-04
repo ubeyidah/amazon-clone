@@ -22,3 +22,19 @@ export const addToCart = (id, numberOfItem = 1) => {
   }
 };
 
+export const getTotalProductCart = () => {
+  let totalQuantity = 0;
+  cart.forEach(item => {
+    totalQuantity += item.quantity
+  });
+  return totalQuantity;
+}
+
+export const updateQuantityInThePage = (className) => {
+  const quantityEl = document.querySelectorAll('.' + className);
+  const totalQuantity = getTotalProductCart();
+  quantityEl.forEach(quantity => {
+    quantity.textContent = totalQuantity;
+  })
+}
+
