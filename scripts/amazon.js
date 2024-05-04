@@ -1,5 +1,5 @@
 import { products } from "../data/products.js";
-import { addToCart, cart, getTotalProductCart, updateQuantityInThePage } from "../data/cart.js";
+import { addToCart, cart, updateQuantityInThePage } from "../data/cart.js";
 import formatCurrency from "./utils/formatCurrency.js";
 
 const renderProducts = () => {

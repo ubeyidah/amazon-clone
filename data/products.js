@@ -658,3 +658,6 @@ export const products = [
     ]
   }
 ];
+
+
+export const getMatchProduct = (id) => products.filter(product => product.id === id);
