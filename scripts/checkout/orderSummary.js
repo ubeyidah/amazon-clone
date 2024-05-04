@@ -3,6 +3,7 @@ import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 import { deliveryOptions, getMatchDeliveryOption } from "../../data/deliveryOptions.js";
 import deliveryDateStr from "../utils/deliveryDateStr.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 export const rednerOrderSummary = () => {
   updateQuantityInThePage("js-quantity");
@@ -107,8 +108,10 @@ export const rednerOrderSummary = () => {
       const { deliveryOptionId  } = deliveryOption.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       rednerOrderSummary();
-    })
-  })
+    });
+  });
+
+  renderPaymentSummary();
 };
 
 // render delivery options
