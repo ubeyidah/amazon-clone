@@ -23,6 +23,12 @@ export const addToCart = (id, numberOfItem = 1) => {
   saveToStorage();
 };
 
+export const deleteItemFromCart = (id) => {
+  const newCart = cart.filter(item => id !== item.id);
+  cart = newCart;
+  saveToStorage();
+}
+
 export const getTotalProductCart = () => {
   let totalQuantity = 0;
   cart.forEach(item => {

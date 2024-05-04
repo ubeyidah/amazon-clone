@@ -1,4 +1,4 @@
-import { cart } from "../../data/cart.js"
+import { cart, deleteItemFromCart } from "../../data/cart.js"
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 
@@ -25,7 +25,7 @@ export const rednerOrderSummary = () => {
               <span class="update-quantity-link link-primary">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary">
+              <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
                 Delete
               </span>
             </div>
@@ -75,4 +75,14 @@ export const rednerOrderSummary = () => {
   });
 
   document.querySelector(".js-order-summary").innerHTML = orderSummaryHTML;
+
+
+  // delete item from cart
+  document.querySelectorAll('.js-delete-link').forEach(deleteLink => {
+    deleteLink.addEventListener('click' , () => {
+      const { productId } = deleteLink.dataset;
+      deleteItemFromCart(productId);
+      rednerOrderSummary();
+    })
+  })
 };
