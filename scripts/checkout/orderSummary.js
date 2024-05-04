@@ -1,8 +1,9 @@
-import { cart, deleteItemFromCart, updateCartQuantity } from "../../data/cart.js"
+import { cart, deleteItemFromCart, updateCartQuantity, updateQuantityInThePage } from "../../data/cart.js"
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 
 export const rednerOrderSummary = () => {
+  updateQuantityInThePage("js-quantity");
   let orderSummaryHTML = '';
   cart.forEach(item => {
     const [matchingProduct] = getMatchProduct(item.id);

@@ -27,6 +27,7 @@ export const deleteItemFromCart = (id) => {
   const newCart = cart.filter(item => id !== item.id);
   cart = newCart;
   saveToStorage();
+  updateQuantityInThePage("js-quantity");
 }
 
 export const updateCartQuantity = (id, quantity) => {
@@ -36,6 +37,7 @@ export const updateCartQuantity = (id, quantity) => {
     }
   });
   saveToStorage();
+  updateQuantityInThePage("js-quantity");
 }
 
 export const getTotalProductCart = () => {
