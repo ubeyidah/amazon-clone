@@ -93,7 +93,7 @@ export const rednerOrderSummary = () => {
       const { productId } = updateBtn.dataset;
       const cartItemContainer = document.querySelector(`.js-container-${productId}`);
       const quantityUpdateValue = +document.querySelector(`.js-update-input-${productId}`).value;
-      if((typeof quantityUpdateValue === "number") && quantityUpdateValue < 1000){
+      if((typeof quantityUpdateValue === "number") && quantityUpdateValue < 1000 && quantityUpdateValue){
         updateCartQuantity(productId, quantityUpdateValue);
         cartItemContainer.classList.remove("is-updating");
         rednerOrderSummary();
