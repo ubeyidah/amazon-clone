@@ -47,7 +47,7 @@ export const rednerOrderSummary = () => {
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            ${deliveryOptionHTML(matchingProduct.id, item)}
+              ${deliveryOptionHTML(matchingProduct.id, item)}
             </div>
           </div>
         </div>
