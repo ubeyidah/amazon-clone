@@ -1,4 +1,8 @@
-export let cart = JSON.parse(localStorage.getItem('cart')) || [];
+export let cart;
+
+export const loadFromStorage = () => cart = JSON.parse(localStorage.getItem('cart')) || []; 
+
+loadFromStorage();
 
 export const saveToStorage = () => localStorage.setItem("cart", JSON.stringify(cart));
 export const getMatchCartItem = (id) => cart.filter(item => item.id === id);
