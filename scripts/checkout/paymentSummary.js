@@ -44,7 +44,7 @@ export const renderPaymentSummary = () => {
   </button>`;
 
 
-  document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHTML;
+  document.querySelector(".js-payment-summary") && (document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHTML);
   paymentCalculation()
 }
 

@@ -16,11 +16,15 @@
     <script src="lib/jasmine-5.1.1/boot0.js"></script>
     <!-- optional: include a file here that configures the Jasmine env -->
     <script src="lib/jasmine-5.1.1/boot1.js"></script>
+    <script src="../scripts/lib/dayjs.min.js"></script>
 
     <!-- spec files -->
     <script type="module" src="./utils/money.test.js"></script>
     <script type="module" src="./data/cart.test.js"></script>
+    <script type="module" src="./checkout/orderSummary.test.js"></script>
   </head>
 
-  <body></body>
+  <body>
+    <div class="js-order-summary"></div>
+  </body>
 </html>
