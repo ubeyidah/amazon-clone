@@ -1,5 +1,5 @@
 import { rednerOrderSummary } from "../../scripts/checkout/orderSummary.js";
-import { loadFromStorage, cart } from "../../data/cart.js"
+import { cart } from "../../data/cart.js"
 
 describe("test suite: renderOrderSummary", () => {
   beforeEach(() => {
@@ -13,7 +13,7 @@ describe("test suite: renderOrderSummary", () => {
       quantity: 3,
       deliveryOptionId: "2"
     }]));
-    loadFromStorage();
+    cart;
     rednerOrderSummary();
   });
 
@@ -33,7 +33,7 @@ describe("test suite: renderOrderSummary", () => {
   it("remove product from the cart", () => {
     document.querySelector(".js-delete-link-15b6fc6f-327a-4ec4-896f-486349e85a3d").click();
 
-    expect(cart.length).toEqual(1);
+    expect(cart.cartItem.length).toEqual(1);
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
   });
 });
