@@ -13,7 +13,7 @@ describe("test suite: renderOrderSummary", () => {
       quantity: 3,
       deliveryOptionId: "2"
     }]));
-    cart;
+    cart.loadFromStorage();
     rednerOrderSummary();
   });
 

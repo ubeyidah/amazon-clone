@@ -4,11 +4,11 @@
 
   constructor(localStorageKey){
     this.#localStoragekey = localStorageKey;
-    this.#loadFromStorage()
+    this.loadFromStorage()
   }
 
   // load data from local storage
-  #loadFromStorage() { 
+  loadFromStorage() { 
     this.cartItem = JSON.parse(localStorage.getItem(this.#localStoragekey)) || []
   }
 
