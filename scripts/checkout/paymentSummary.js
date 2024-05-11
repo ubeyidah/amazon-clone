@@ -1,4 +1,4 @@
-import { cart, getTotalProductCart } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
 import { getMatchDeliveryOption } from "../../data/deliveryOptions.js";
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
@@ -15,7 +15,7 @@ export const renderPaymentSummary = () => {
   let paymentSummaryHTML = `
   <div class="payment-summary-title">Order Summary</div>
   <div class="payment-summary-row">
-    <div>Items (${getTotalProductCart()}):</div>
+    <div>Items (${cart.getTotalProductCart()}):</div>
     <div class="payment-summary-money">$${formatCurrency(totalItemPriceCents)}</div>
   </div>
 
@@ -55,7 +55,7 @@ function paymentCalculation(){
   let totalItemPriceCents = 0;
   let totalShippingPriceCents = 0;
   
-  cart.forEach(item => {
+  cart.cartItem.forEach(item => {
     const [matchingProduct] = getMatchProduct(item.id);
     const priceCents = item.quantity * matchingProduct.priceCents;
     totalItemPriceCents += priceCents;

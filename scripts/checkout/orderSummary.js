@@ -1,4 +1,4 @@
-import { cart, deleteItemFromCart, updateCartQuantity, updateDeliveryOption, updateQuantityInThePage } from "../../data/cart.js"
+import { cart } from "../../data/cart.js"
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 import { deliveryOptions, getMatchDeliveryOption } from "../../data/deliveryOptions.js";
@@ -6,9 +6,9 @@ import deliveryDateStr from "../utils/deliveryDateStr.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
 
 export const rednerOrderSummary = () => {
-  updateQuantityInThePage("js-quantity");
+  cart.updateQuantityInThePage("js-quantity");
   let orderSummaryHTML = '';
-  cart.forEach(item => {
+  cart.cartItem.forEach(item => {
     const [matchingProduct] = getMatchProduct(item.id);
     const [matchingDeliveryOption] = getMatchDeliveryOption(item.deliveryOptionId);
     const deliveryDayString = deliveryDateStr(matchingDeliveryOption.deliveryDay)
@@ -62,7 +62,7 @@ export const rednerOrderSummary = () => {
   document.querySelectorAll('.js-delete-link').forEach(deleteLink => {
     deleteLink.addEventListener('click' , () => {
       const { productId } = deleteLink.dataset;
-      deleteItemFromCart(productId);
+      cart.deleteItemFromCart(productId);
       rednerOrderSummary();
     })
   })
@@ -73,7 +73,7 @@ export const rednerOrderSummary = () => {
     updateLink.addEventListener('click', () => {
       const { productId } = updateLink.dataset;
       const cartItemContainer = document.querySelector(`.js-container-${productId}`);
-      cartItemContainer.classList.add("is-updating")
+      cartItemContainer.classList.add("is-updating");
     })
   })
 
@@ -95,7 +95,7 @@ export const rednerOrderSummary = () => {
       const cartItemContainer = document.querySelector(`.js-container-${productId}`);
       const quantityUpdateValue = +document.querySelector(`.js-update-input-${productId}`).value;
       if((typeof quantityUpdateValue === "number") && quantityUpdateValue < 1000 && quantityUpdateValue){
-        updateCartQuantity(productId, quantityUpdateValue);
+        cart.updateCartQuantity(productId, quantityUpdateValue);
         cartItemContainer.classList.remove("is-updating");
         rednerOrderSummary();
       }
@@ -107,7 +107,7 @@ export const rednerOrderSummary = () => {
     deliveryOption.addEventListener("click" , () => {
       const { productId } = deliveryOption.dataset;
       const { deliveryOptionId  } = deliveryOption.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       rednerOrderSummary();
     });
   });
