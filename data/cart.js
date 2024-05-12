@@ -83,6 +83,18 @@
     })
   };
 
+
+  // add product from old orders
+  addProcutFromOrder(id, quantity){
+    const [matchingItem] = this.getMatchCartItem(id);
+    if(!matchingItem){
+      this.cartItem.push({id: id, quantity: quantity, deliveryOptionId: "1"});
+      console.log("added");
+    }else{
+      console.log('alrady in your cart');
+    }
+    this.saveToStorage();
+  }
 };
 
 export const cart = new Cart("cart");

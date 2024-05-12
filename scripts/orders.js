@@ -36,8 +36,25 @@ async function renderOrders() {
     `;
   })
 
-
   document.querySelector(".js-orders-grid").innerHTML = orderHTML;
+
+  document.querySelectorAll(".js-buy-again-button").forEach(buyBtn => {
+    buyBtn.addEventListener("click", () => {
+      const {productId} = buyBtn.dataset;
+      let matchingCartItem;
+      orders.forEach(order => {
+        order.products.forEach(product => {
+          if(product.productId === productId){
+            matchingCartItem = product;
+          }
+        })
+      });
+
+      cart.addProcutFromOrder(productId, matchingCartItem.quantity)
+      cart.updateQuantityInThePage("js-cart-quantity");
+
+    })
+  })
 }
 
 function ordersHTML(orderProducts, orderPlaced, orderId){
@@ -56,7 +73,7 @@ function ordersHTML(orderProducts, orderPlaced, orderId){
       </div>
       <div class="product-delivery-date">Arriving on:${orderPlaced} </div>
       <div class="product-quantity">Quantity: ${orderProduct.quantity}</div>
-      <button class="buy-again-button button-primary">
+      <button class="buy-again-button button-primary js-buy-again-button" data-product-id="${productId}">
         <img class="buy-again-icon" src="images/icons/buy-again.png" />
         <span class="buy-again-message">Buy it again</span>
       </button>
