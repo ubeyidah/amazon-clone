@@ -2,11 +2,9 @@ import { products,  loadProductsFetch } from "../data/products.js";
 import { cart } from "../data/cart.js";
 
 
-loadProductsFetch().then(() => {
-  renderProducts();
-})
-function renderProducts() {
-  
+
+async function renderProducts() {
+await loadProductsFetch();
 let productsHTML = '';
 products.forEach(product => {
   productsHTML += `
@@ -76,3 +74,4 @@ document.querySelectorAll(".js-add-to-cart-btn").forEach(addBtn => {
 
 // init
 cart.updateQuantityInThePage('js-cart-quantity');
+renderProducts();

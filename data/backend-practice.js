@@ -64,26 +64,53 @@ function logCart() {
 // })
 
 
-function getProduct(){
+// function getProduct(){
+//   const url = "https://supersimplebackend.dev/products";
+//   const promise = fetch(url)
+//   .then((res) => res.json())
+//   .then((data) => {
+//     products = data
+//   });
+//   return promise;
+// }
+
+// function getCart() {
+//   const url = "https://supersimplebackend.dev/cart";
+//   const promise = fetch(url)
+//   .then((res) => res.json())
+//   .then((data) => {
+//     cart = data
+//   });
+//   return promise;
+// }
+
+
+// Promise.all([
+//   getProduct(),
+//   getCart()
+// ]).then(() => {
+//   logProduct();
+//   logCart();
+// })
+
+
+const renderProduct = async () => {
   const url = "https://supersimplebackend.dev/products";
-  const promise = fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    products = data
-  });
-  return promise;
+  const res = await fetch(url);
+  const productData = await res.json();
+  products = productData;
+  logProduct();
 }
 
-function getCart() {
+renderProduct();
+
+
+const renderCart = async () => {
   const url = "https://supersimplebackend.dev/cart";
-  const promise = fetch(url)
-  .then((res) => res.json())
-  .then((data) => {
-    cart = data
-  });
-  return promise;
+  const res = await fetch(url);
+  const cartData = await res.text();
+  cart = cartData;
+  logCart();
 }
 
-
-getProduct().then(()=> logProduct());
-getCart().then(() => logCart())
+renderCart()
