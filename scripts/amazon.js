@@ -1,8 +1,9 @@
-import { products } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 import { cart } from "../data/cart.js";
-import formatCurrency from "./utils/formatCurrency.js";
 
-const renderProducts = () => {
+
+loadProducts(renderProducts);
+function renderProducts() {
   
 let productsHTML = '';
 products.forEach(product => {
@@ -72,5 +73,4 @@ document.querySelectorAll(".js-add-to-cart-btn").forEach(addBtn => {
 
 
 // init
-renderProducts();
 cart.updateQuantityInThePage('js-cart-quantity');

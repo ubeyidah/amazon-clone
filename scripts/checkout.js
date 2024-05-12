@@ -1,6 +1,10 @@
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { rednerOrderSummary } from "./checkout/orderSummary.js";
-import "../data/backend-practice.js";
+import { loadProducts } from "../data/products.js";
+// import "../data/backend-practice.js";
 // init
-renderPaymentSummary();
-rednerOrderSummary();
+
+loadProducts(() => {
+  renderPaymentSummary();
+  rednerOrderSummary();
+})
