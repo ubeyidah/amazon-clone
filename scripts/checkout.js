@@ -4,7 +4,13 @@ import { loadProducts } from "../data/products.js";
 // import "../data/backend-practice.js";
 // init
 
-loadProducts(() => {
+
+
+new Promise((resolve) => {
+  loadProducts(() => {
+    resolve();
+  });
+}).then(() => {
   renderPaymentSummary();
   rednerOrderSummary();
 })
