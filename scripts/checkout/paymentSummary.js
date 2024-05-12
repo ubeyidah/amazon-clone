@@ -1,5 +1,6 @@
 import { cart } from "../../data/cart.js";
 import { getMatchDeliveryOption } from "../../data/deliveryOptions.js";
+import { createOrder } from "../../data/orders.js";
 import { getMatchProduct } from "../../data/products.js";
 import formatCurrency from "../utils/formatCurrency.js";
 
@@ -39,13 +40,44 @@ export const renderPaymentSummary = () => {
     <div class="payment-summary-money">$${formatCurrency(totalCents)}</div>
   </div>
 
-  <button class="place-order-button button-primary">
+  <button class="place-order-button button-primary js-payment-button">
     Place your order
   </button>`;
 
 
   document.querySelector(".js-payment-summary") && (document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHTML);
-  paymentCalculation()
+  paymentCalculation();
+
+  document.querySelector(".js-payment-button")
+    .addEventListener("click", async () => {
+      try{
+        let orderData = []
+        cart.cartItem.forEach(item => {
+          orderData.push({
+            productId: item.id,
+            quantity: item.quantity,
+            deliveryOptionId: item.deliveryOptionId
+          })
+        })
+        const url = "https://supersimplebackend.dev/orders";
+        const res = await fetch(url,{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            cart: orderData
+          })
+        });
+        const order = await res.json();
+        createOrder(order);
+        cart.cartItem = [];
+        cart.saveToStorage();
+        window.location.href = "./orders.html";
+      }catch(error){
+        console.log("unexpected error");
+      }
+    })
 }
 
 
