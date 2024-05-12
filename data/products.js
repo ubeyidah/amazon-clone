@@ -47,16 +47,20 @@ export let products = [];
 
 
 export async function loadProductsFetch(){
-  const url = "https://supersimplebackend.dev/products";
-  const res = await fetch(url );
-  const productDatas = await res.json();
-  products  = productDatas.map(product => {
-    if(product.type == "clothing"){
-      return new Clothing(product);
-    }else{
-      return new Product(product);
-    }
-  });
+ try{
+    const url = "https://supersimplebackend.dev/products";
+    const res = await fetch(url );
+    const productDatas = await res.json();
+    products  = productDatas.map(product => {
+      if(product.type == "clothing"){
+        return new Clothing(product);
+      }else{
+        return new Product(product);
+      }
+    });
+ }catch(err) {
+  console.log('somting wrong. Please try again later.');
+ }
 }
 
 
@@ -75,6 +79,10 @@ export function loadProducts(renderProducts){
     renderProducts();
     console.log("load products");
   });
+  xhr.addEventListener("error", () => {
+    console.log("somting wrong. please try again later.
+    ")
+  })
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }

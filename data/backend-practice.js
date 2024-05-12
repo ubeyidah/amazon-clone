@@ -95,22 +95,30 @@ function logCart() {
 
 
 const renderProduct = async () => {
-  const url = "https://supersimplebackend.dev/products";
-  const res = await fetch(url);
-  const productData = await res.json();
-  products = productData;
-  logProduct();
+  try {
+    const url = "https://supersimplebackend.dev/products";
+    const res = await fetch(url);
+    const productData = await res.json();
+    products = productData;
+    logProduct();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 renderProduct();
 
 
 const renderCart = async () => {
+ try {
   const url = "https://supersimplebackend.dev/cart";
   const res = await fetch(url);
   const cartData = await res.text();
   cart = cartData;
   logCart();
+ } catch (error) {
+  console.log(error);
+ }
 }
 
 renderCart()
