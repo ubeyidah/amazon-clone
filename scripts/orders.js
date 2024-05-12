@@ -76,5 +76,5 @@ function ordersHTML(orderProducts, orderPlaced, orderId){
 
 
 renderOrders();
-cart.updateQuantityInThePage("js-cart-quantity")
+cart.updateQuantityInThePage("js-cart-quantity");
 
