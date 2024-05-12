@@ -1,12 +1,10 @@
 import { rednerOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { cart } from "../../data/cart.js"
-import { loadProducts } from "../../data/products.js";
+import { loadProductsFetch } from "../../data/products.js";
 
 describe("test suite: renderOrderSummary", () => {
   beforeAll((done) => {
-    loadProducts(() => {
-      done();
-    });  
+    loadProductsFetch().then(()=> done())
   });
 
   beforeEach(() => {
