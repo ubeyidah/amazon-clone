@@ -1,7 +1,14 @@
 import { rednerOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { cart } from "../../data/cart.js"
+import { loadProducts } from "../../data/products.js";
 
 describe("test suite: renderOrderSummary", () => {
+  beforeAll((done) => {
+    loadProducts(() => {
+      done();
+    });  
+  });
+
   beforeEach(() => {
     spyOn(localStorage, "setItem");
     spyOn(localStorage, 'getItem').and.callFake(() => JSON.stringify([{
@@ -14,6 +21,7 @@ describe("test suite: renderOrderSummary", () => {
       deliveryOptionId: "2"
     }]));
     cart.loadFromStorage();
+    
     rednerOrderSummary();
   });
 
